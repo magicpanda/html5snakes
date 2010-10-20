@@ -1,4 +1,4 @@
-var FPS = 4;
+var FPS = 10;
 
 var GameEngine = {
     load: function(game) {
