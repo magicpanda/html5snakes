@@ -29,14 +29,14 @@ var SnakeWarsGame = {
     keyDown: function(keyCode) {
         //alert("keyDown:" + keyCode);
         switch (keyCode) {
-            case 37: this.snake1.turnOrSpeedUp(DIRECTION.WEST);  break; // left arrow
-            case 38: this.snake1.turnOrSpeedUp(DIRECTION.NORTH); break; // up arrow
-            case 39: this.snake1.turnOrSpeedUp(DIRECTION.EAST);  break; // right arrow
-            case 40: this.snake1.turnOrSpeedUp(DIRECTION.SOUTH); break; // down arrow
-            case 65: this.snake2.turnOrSpeedUp(DIRECTION.WEST);  break; // A
-            case 68: this.snake2.turnOrSpeedUp(DIRECTION.EAST);  break; // D
-            case 83: this.snake2.turnOrSpeedUp(DIRECTION.SOUTH); break; // S
-            case 87: this.snake2.turnOrSpeedUp(DIRECTION.NORTH); break; // W
+            case 37: this.snake1.changeDirectionOrSpeedUp(DIRECTION.WEST);  break; // left arrow
+            case 38: this.snake1.changeDirectionOrSpeedUp(DIRECTION.NORTH); break; // up arrow
+            case 39: this.snake1.changeDirectionOrSpeedUp(DIRECTION.EAST);  break; // right arrow
+            case 40: this.snake1.changeDirectionOrSpeedUp(DIRECTION.SOUTH); break; // down arrow
+            case 65: this.snake2.changeDirectionOrSpeedUp(DIRECTION.WEST);  break; // A
+            case 68: this.snake2.changeDirectionOrSpeedUp(DIRECTION.EAST);  break; // D
+            case 83: this.snake2.changeDirectionOrSpeedUp(DIRECTION.SOUTH); break; // S
+            case 87: this.snake2.changeDirectionOrSpeedUp(DIRECTION.NORTH); break; // W
         }
     },
     keyUp: function (keyCode) {

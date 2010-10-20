@@ -16,14 +16,15 @@ function Snake(sections) {
     this.skipMove = false;
     this.speed = SPEED.NORMAL;
     this.direction = DIRECTION.NORTH;
+    this.newDirection = DIRECTION.NORTH;
     this.sections = sections || [{x:10, y:5},{x:10, y:6},{x:10, y:7},{x:10, y:8},{x:10, y:9}];
 }
 
-Snake.prototype.turnOrSpeedUp = function(dir) {
+Snake.prototype.changeDirectionOrSpeedUp = function(dir) {
     if (dir == this.direction) {
         this.speed = SPEED.FAST;
-    } else if (dir + this.direction != 5) {
-        this.direction = dir;
+    } else {
+        this.newDirection = dir;
     }
 }
 
@@ -44,6 +45,11 @@ Snake.prototype.move = function() {
         if (this.skipMove) {
             return;
         }
+    }
+
+    // change direction ?
+    if (this.newDirection + this.direction != 5) {
+        this.direction = this.newDirection;
     }
 
     // go ahead
@@ -67,6 +73,7 @@ Snake.prototype.bite = function(snake2) {
         var section = snake2.sections[i];
         if (myHead.x == section.x && myHead.y == section.y) {
             if (i == 0) {
+                alert("!");
                 // bite snake2's head
                 this.reverse();
                 snake2.reverse();
