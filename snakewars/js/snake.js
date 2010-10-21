@@ -69,21 +69,29 @@ Snake.prototype.move = function() {
 // Bite another snake and return true if bite successful.
 Snake.prototype.bite = function(snake2) {
     var myHead = this.sections[0];
+    var s2Head = snake2.sections[0];
+
+    // reverse snakes' movement direction if their heads collide
+    if (// 2 heads have collided
+           myHead.x==s2Head.x && myHead.y==s2Head.y
+        // 2 heads want to collide and 2 snakes are in reverse vertical movement direction
+        || myHead.x==s2Head.x && Math.abs(myHead.y-s2Head.y)==1 && this.direction+snake2.direction==5 && Math.abs(this.direction-snake2.direction)==3
+        // 2 heads want to collide and 2 snakes are in reverse horizontal movement direction
+        || myHead.y==s2Head.y && Math.abs(myHead.x-s2Head.x)==1 && this.direction+snake2.direction==5 && Math.abs(this.direction-snake2.direction)==1
+        ) {
+
+        //alert("!");
+        this.reverse();
+        snake2.reverse();
+        return true;
+    }
+
     for (var i = 0; i < snake2.sections.length; i++) {
-        var section = snake2.sections[i];
-        if (myHead.x == section.x && myHead.y == section.y) {
-            if (i == 0) {
-                alert("!");
-                // bite snake2's head
-                this.reverse();
-                snake2.reverse();
-                //this.move();
-                //snake2.move();
-            } else {
-                var lost = snake2.sections.length - i;
-                snake2.shrink(lost);
-                this.grow(lost);
-            }
+        var s2section = snake2.sections[i];
+        if (myHead.x == s2section.x && myHead.y == s2section.y) {
+            var lost = snake2.sections.length - i;
+            snake2.shrink(lost);
+            this.grow(lost);
             return true;
         }
     }
