@@ -39,6 +39,8 @@ Snake.prototype.slowDown = function() {
 }
 
 Snake.prototype.move = function() {
+	var coordinate = document.getElementById("coordinate");
+	coordinate.value="0";
     // snake at NORMAL movement speed will skip odd frames
     if (this.speed == SPEED.NORMAL) {
         this.skipMove = !this.skipMove;
@@ -51,18 +53,17 @@ Snake.prototype.move = function() {
     if (this.newDirection + this.direction != 5) {
         this.direction = this.newDirection;
     }
-
     // go ahead
     for (var i = this.sections.length - 1; i > 0 ; i--) {
-        this.sections[i].x = this.sections[i - 1].x;
+    	this.sections[i].x = this.sections[i - 1].x;
         this.sections[i].y = this.sections[i - 1].y;
     }
     var head = this.sections[0];
     switch (this.direction) {
-        case DIRECTION.NORTH: head.y--; break;
-        case DIRECTION.SOUTH: head.y++; break;
-        case DIRECTION.EAST:  head.x++; break;
-        case DIRECTION.WEST:  head.x--; break;
+        case DIRECTION.NORTH: {head.y--;if(head.y + 0 == 0 + 0){head.y = CANVAS_HEIGHT/10 - 1;} break;}
+        case DIRECTION.SOUTH: {head.y++;if(head.y + 0 == CANVAS_HEIGHT/10 + 0){head.y = 1;} break;}
+        case DIRECTION.EAST:  {head.x++;if(head.x + 0 == CANVAS_WIDTH/10 + 0){head.x = 1;} break;}
+        case DIRECTION.WEST:  {head.x--;if(head.x + 0 == 0 + 0){head.x = CANVAS_WIDTH/10 - 1} break;}
     }
 }
 
