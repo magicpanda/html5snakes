@@ -1,3 +1,4 @@
+var CANVAS_WIDTH = 800,CANVAS_HEIGHT = 600;
 var SnakeWarsGame = {
     name: "Snake Wars",
     snake1: new Snake([{x:10, y:5},{x:10, y:6},{x:10, y:7},{x:10, y:8},{x:10, y:9}]),
@@ -12,6 +13,8 @@ var SnakeWarsGame = {
     },
     draw: function(canvas) {
         var ctx2d = canvas.getContext('2d');
+        canvas.width = CANVAS_WIDTH;
+        canvas.height = CANVAS_HEIGHT;
         // clear the canvas
         ctx2d.clearRect(0, 0, canvas.width, canvas.height);
         // draw snakes
