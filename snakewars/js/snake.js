@@ -60,10 +60,10 @@ Snake.prototype.move = function() {
     }
     var head = this.sections[0];
     switch (this.direction) {
-        case DIRECTION.NORTH: {head.y--;if(head.y + 0 == 0 + 0){head.y = CANVAS_HEIGHT/10 - 1;} break;}
-        case DIRECTION.SOUTH: {head.y++;if(head.y + 0 == CANVAS_HEIGHT/10 + 0){head.y = 1;} break;}
-        case DIRECTION.EAST:  {head.x++;if(head.x + 0 == CANVAS_WIDTH/10 + 0){head.x = 1;} break;}
-        case DIRECTION.WEST:  {head.x--;if(head.x + 0 == 0 + 0){head.x = CANVAS_WIDTH/10 - 1} break;}
+        case DIRECTION.NORTH: {head.y--;if(head.y== -1){head.y = CANVAS_HEIGHT/10;} break;}
+        case DIRECTION.SOUTH: {head.y++;if(head.y== CANVAS_HEIGHT/10){head.y = 1;} break;}
+        case DIRECTION.EAST:  {head.x++;if(head.x== CANVAS_WIDTH/10){head.x = 1;} break;}
+        case DIRECTION.WEST:  {head.x--;if(head.x== -1){head.x = CANVAS_WIDTH/10} break;}
     }
 }
 
