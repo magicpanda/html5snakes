@@ -1,23 +1,17 @@
 var CANVAS_WIDTH = 800,CANVAS_HEIGHT = 600;
 var MAX_ROUND_TIME = 10 * 60;
-var RANDOM_X = 100,RANDOM_Y = 100;
+var RANDOM_X = 100,RANDOM_Y = 100,RNADOM_TYPE = 1;
 var SnakeWarsGame = {
     name: "Snake Wars",
     snake1: new Snake([{x:10, y:5},{x:10, y:6},{x:10, y:7},{x:10, y:8},{x:10, y:9}]),
     snake2: new Snake([{x:20, y:5},{x:20, y:6},{x:20, y:7},{x:20, y:8},{x:20, y:9}]),
-
+	bonus: new Bonus(1,10,10),
     update: function() {
         this.snake1.move();
         this.snake2.move();
         if (!this.snake1.bite(this.snake2)) {
             this.snake2.bite(this.snake1);
         }
-    },
-    
-    gameCountDown:function(canvas){
-    	var ctx2d = canvas.getContext('2d');
-	    var time = CountDown(ctx2d,this.snake1,this.snake2);
-	    this.drawBonus(ctx2d,time);
     },
     
     draw: function(canvas) {
@@ -44,10 +38,11 @@ var SnakeWarsGame = {
     	if(time%120 == 0){
     		RANDOM_X = Math.ceil(Math.random()*CANVAS_WIDTH);
     		RANDOM_Y = Math.ceil(Math.random()*CANVAS_HEIGHT);
+    		RNADOM_TYPE = (Math.random()*1000)%4 + 1;
     	}
     	if(time != MAX_ROUND_TIME){
-        	ctx2d.fillStyle = "red";
-        	ctx2d.fillRect(RANDOM_X+1, RANDOM_Y+1, 8, 8);
+        	this.bonus = new Bonus(RNADOM_TYPE,RANDOM_X,RANDOM_Y);
+        	this.bonus.draw(ctx2d);
     	}
     },
     keyDown: function(keyCode) {

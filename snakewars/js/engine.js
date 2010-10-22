@@ -11,7 +11,7 @@ var GameEngine = {
                 game.draw(canvas);
             }
         }, 1000 / FPS);
-
+        
         document.addEventListener("keydown", function(e) {
             if (!paused) {
                 game.keyDown(e.keyCode)
