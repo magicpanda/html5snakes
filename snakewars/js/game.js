@@ -1,4 +1,5 @@
 var CANVAS_WIDTH = 800,CANVAS_HEIGHT = 600;
+var MAX_ROUND_TIME = 3 * 60;
 var SnakeWarsGame = {
     name: "Snake Wars",
     snake1: new Snake([{x:10, y:5},{x:10, y:6},{x:10, y:7},{x:10, y:8},{x:10, y:9}]),
@@ -17,6 +18,7 @@ var SnakeWarsGame = {
         canvas.height = CANVAS_HEIGHT;
         // clear the canvas
         ctx2d.clearRect(0, 0, canvas.width, canvas.height);
+	    CountDown(ctx2d,this.snake1,this.snake2);
         // draw snakes
         this.drawSnake(ctx2d, this.snake1);
         this.drawSnake(ctx2d, this.snake2);
