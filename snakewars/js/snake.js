@@ -69,7 +69,6 @@ Snake.prototype.move = function() {
 Snake.prototype.bite = function(snake2) {
     var myHead = this.sections[0];
     var s2Head = snake2.sections[0];
-
     // reverse snakes' movement direction if their heads collide
     if (// 2 heads have collided
            myHead.x==s2Head.x && myHead.y==s2Head.y
@@ -127,13 +126,17 @@ Snake.prototype.shrink = function(num) {
     }
 }
 // eat bonus
-Snake.prototype.eat = function(bonus, snake2) {
+Snake.prototype.eat = function(ctx2d, bonus, snake2) {
 	var myHead = this.sections[0];
 	//alert(myHead.x +":" + bonus.x + ":"+ myHead.y + ":" + bonus.y);
 	if (myHead.x == bonus.x && myHead.y == bonus.y) {
-		// reverse snakes' movement direction if their heads collide
-		if (bonus.type == BONUS_TYPE.FREEZE) {
+		bonus.action(this,snake2);
+		// reverse snakes' movement direction
+		/*if (bonus.type == BONUS_TYPE.FREEZE) {
+			bonus.type = -1;
 			snake2.reverse();
-		}
+			bonus.destory(ctx2d);
+			return;
+		}*/
 	}
 }
