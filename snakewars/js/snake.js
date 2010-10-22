@@ -39,8 +39,6 @@ Snake.prototype.slowDown = function() {
 }
 
 Snake.prototype.move = function() {
-	var coordinate = document.getElementById("coordinate");
-	coordinate.value="0";
     // snake at NORMAL movement speed will skip odd frames
     if (this.speed == SPEED.NORMAL) {
         this.skipMove = !this.skipMove;
