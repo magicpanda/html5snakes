@@ -1,7 +1,7 @@
 var CANVAS_WIDTH  = 800;
 var CANVAS_HEIGHT = 600;
 var MAX_ROUND_TIME = 30 * 60;
-var RANDOM_X = 10,RANDOM_Y = 10,RNADOM_TYPE = 1;
+var RANDOM_X = 10,RANDOM_Y = 2,RNADOM_TYPE = 1;
 
 var GAME_STATE = {
     PLAYING : 0,
@@ -17,7 +17,8 @@ var SnakeWarsGame = {
     state: GAME_STATE.PLAYING,
     result: "",
 
-    update: function() {
+    update: function(canvas) {
+    	var ctx2d = canvas.getContext('2d');
         if (this.state == GAME_STATE.PLAYING) {
             this.timer.update();
             if (this.timer.timeLeft == 0) {
@@ -33,8 +34,8 @@ var SnakeWarsGame = {
             } else {
                 this.snake1.move();
                 this.snake2.move();
-                this.snake1.eat(this.bonus,this.snake2);
-                this.snake2.eat(this.bonus,this.snake1);
+            	this.snake1.eat(ctx2d,this.bonus,this.snake2);                
+                //this.snake2.eat(this.bonus,this.snake1);
                 if (!this.snake1.bite(this.snake2)) {
                     this.snake2.bite(this.snake1);
                 }
@@ -77,7 +78,7 @@ var SnakeWarsGame = {
     	if(time%120 == 0){
     		RANDOM_X = Math.ceil(Math.random()*CANVAS_WIDTH/10);
     		RANDOM_Y = Math.ceil(Math.random()*CANVAS_HEIGHT/10);
-    		RNADOM_TYPE = 1;//Math.ceil((Math.random()*1000)%4) + 1;
+    		RNADOM_TYPE = Math.ceil((Math.random()*1000)%4) + 1;
     	}
     	if(time != MAX_ROUND_TIME){
         	this.bonus = new Bonus(RNADOM_TYPE,RANDOM_X,RANDOM_Y);
