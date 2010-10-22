@@ -1,18 +1,44 @@
-var CANVAS_WIDTH = 800,CANVAS_HEIGHT = 600;
+var CANVAS_WIDTH  = 800;
+var CANVAS_HEIGHT = 600;
 var MAX_ROUND_TIME = 30 * 60;
 var RANDOM_X = 10,RANDOM_Y = 10,RNADOM_TYPE = 1;
+
+var GAME_STATE = {
+    PLAYING : 0,
+     STOPED : 1
+};
+
 var SnakeWarsGame = {
     name: "Snake Wars",
     snake1: new Snake([{x:10, y:5},{x:10, y:6},{x:10, y:7},{x:10, y:8},{x:10, y:9}]),
     snake2: new Snake([{x:20, y:5},{x:20, y:6},{x:20, y:7},{x:20, y:8},{x:20, y:9}]),
 	bonus: new Bonus(RNADOM_TYPE,RANDOM_X,RANDOM_Y),
+    timer: new CountdownTimer(2*60*1000), // 2 minutes
+    state: GAME_STATE.PLAYING,
+    result: "",
+
     update: function() {
-        this.snake1.move();
-        this.snake2.move();
-        this.snake1.eat(this.bonus,this.snake2);
-        this.snake2.eat(this.bonus,this.snake1);
-        if (!this.snake1.bite(this.snake2)) {
-            this.snake2.bite(this.snake1);
+        if (this.state == GAME_STATE.PLAYING) {
+            this.timer.update();
+            if (this.timer.timeLeft == 0) {
+                //alert("time out!");
+                this.state = GAME_STATE.STOPED;
+                if (this.snake1.sections.length > this.snake2.sections.length) {
+                    this.result = "Snake 1 wins!";
+                } else if (this.snake2.sections.length > this.snake1.sections.length) {
+                    this.result = "Snake 2 wins!";
+                } else {
+                    this.result = "No one wins!";
+                }
+            } else {
+                this.snake1.move();
+                this.snake2.move();
+                this.snake1.eat(this.bonus,this.snake2);
+                this.snake2.eat(this.bonus,this.snake1);
+                if (!this.snake1.bite(this.snake2)) {
+                    this.snake2.bite(this.snake1);
+                }
+            }
         }
     },
     
@@ -22,11 +48,18 @@ var SnakeWarsGame = {
         canvas.height = CANVAS_HEIGHT;
         // clear the canvas
         ctx2d.clearRect(0, 0, canvas.width, canvas.height);
-	    var time = CountDown(ctx2d,this.snake1,this.snake2);
+
+        // draw countdown timer
+        this.drawTimer(ctx2d);
         // draw snakes
         this.drawSnake(ctx2d, this.snake1);
         this.drawSnake(ctx2d, this.snake2);
-        this.drawBonus(ctx2d,time);
+        
+        if (this.state == GAME_STATE.STOPED) {
+            ctx2d.fillText(this.result, CANVAS_WIDTH / 2 - 100, CANVAS_HEIGHT / 2);
+        }
+
+        this.drawBonus(ctx2d, this.timer.timeLeft);
     },
     drawSnake: function(ctx2d, snake) {
         for (var i = 0; i < snake.sections.length; i++) {
@@ -35,6 +68,10 @@ var SnakeWarsGame = {
             var y = snake.sections[i].y*10;
             ctx2d.fillRect(x+1, y+1, 8, 8);
         }
+    },
+    drawTimer: function(ctx2d) {
+        ctx2d.fillStyle =  "gray";
+        ctx2d.fillText(this.timer.getTimeLeft(), CANVAS_WIDTH - 100, 30);
     },
     drawBonus: function(ctx2d,time) {
     	if(time%120 == 0){
