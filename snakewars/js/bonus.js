@@ -31,5 +31,7 @@ Bonus.prototype.draw = function(ctx2d) {
         	}else if(this.type == BONUS_TYPE.HIDING){
         	    ctx2d.fillStyle = "yellow";
         	}
-        	ctx2d.fillRect(this.x, this.y, 8, 8);
+        	var x = this.x*10;
+        	var y = this.y*10;
+        	ctx2d.fillRect(x, y, 8, 8);
 }

@@ -129,7 +129,8 @@ Snake.prototype.shrink = function(num) {
 // eat bonus
 Snake.prototype.eat = function(bonus, snake2) {
 	var myHead = this.sections[0];
-	if (Math.abs(myHead.x - bonus.x) <= 8 && Math.abs(myHead.y - bonus.y) <= 8) {
+	//alert(myHead.x +":" + bonus.x + ":"+ myHead.y + ":" + bonus.y);
+	if (myHead.x == bonus.x && myHead.y == bonus.y) {
 		// reverse snakes' movement direction if their heads collide
 		if (bonus.type == BONUS_TYPE.FREEZE) {
 			snake2.reverse();

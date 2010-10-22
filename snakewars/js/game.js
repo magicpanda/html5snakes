@@ -75,9 +75,9 @@ var SnakeWarsGame = {
     },
     drawBonus: function(ctx2d,time) {
     	if(time%120 == 0){
-    		RANDOM_X = Math.ceil(Math.random()*CANVAS_WIDTH);
-    		RANDOM_Y = Math.ceil(Math.random()*CANVAS_HEIGHT);
-    		RNADOM_TYPE = Math.ceil((Math.random()*1000)%4) + 1;
+    		RANDOM_X = Math.ceil(Math.random()*CANVAS_WIDTH/10);
+    		RANDOM_Y = Math.ceil(Math.random()*CANVAS_HEIGHT/10);
+    		RNADOM_TYPE = 1;//Math.ceil((Math.random()*1000)%4) + 1;
     	}
     	if(time != MAX_ROUND_TIME){
         	this.bonus = new Bonus(RNADOM_TYPE,RANDOM_X,RANDOM_Y);
