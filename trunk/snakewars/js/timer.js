@@ -32,4 +32,5 @@ function CountDown(ctx2d, snake1, snake2) {
 					CANVAS_HEIGHT / 2);
 		ctx2d.clearRect(0, 0, canvas.width, canvas.height);
 	}
+	return countDownTime;
 }
