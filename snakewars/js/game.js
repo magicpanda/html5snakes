@@ -1,14 +1,16 @@
 var CANVAS_WIDTH = 800,CANVAS_HEIGHT = 600;
 var MAX_ROUND_TIME = 30 * 60;
-var RANDOM_X = 100,RANDOM_Y = 100,RNADOM_TYPE = 1;
+var RANDOM_X = 10,RANDOM_Y = 10,RNADOM_TYPE = 1;
 var SnakeWarsGame = {
     name: "Snake Wars",
     snake1: new Snake([{x:10, y:5},{x:10, y:6},{x:10, y:7},{x:10, y:8},{x:10, y:9}]),
     snake2: new Snake([{x:20, y:5},{x:20, y:6},{x:20, y:7},{x:20, y:8},{x:20, y:9}]),
-	bonus: new Bonus(1,10,10),
+	bonus: new Bonus(RNADOM_TYPE,RANDOM_X,RANDOM_Y),
     update: function() {
         this.snake1.move();
         this.snake2.move();
+        this.snake1.eat(this.bonus,this.snake2);
+        this.snake2.eat(this.bonus,this.snake1);
         if (!this.snake1.bite(this.snake2)) {
             this.snake2.bite(this.snake1);
         }
