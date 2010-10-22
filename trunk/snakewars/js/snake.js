@@ -17,7 +17,7 @@ function Snake(sections) {
     this.speed = SPEED.NORMAL;
     this.direction = DIRECTION.NORTH;
     this.newDirection = DIRECTION.NORTH;
-    this.sections = sections || [{x:10, y:5},{x:10, y:6},{x:10, y:7},{x:10, y:8},{x:10, y:9}];
+    this.sections = sections;
 }
 
 Snake.prototype.changeDirectionOrSpeedUp = function(dir) {
