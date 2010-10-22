@@ -1,5 +1,5 @@
 var CANVAS_WIDTH = 800,CANVAS_HEIGHT = 600;
-var MAX_ROUND_TIME = 10 * 60;
+var MAX_ROUND_TIME = 30 * 60;
 var RANDOM_X = 100,RANDOM_Y = 100,RNADOM_TYPE = 1;
 var SnakeWarsGame = {
     name: "Snake Wars",
@@ -38,7 +38,7 @@ var SnakeWarsGame = {
     	if(time%120 == 0){
     		RANDOM_X = Math.ceil(Math.random()*CANVAS_WIDTH);
     		RANDOM_Y = Math.ceil(Math.random()*CANVAS_HEIGHT);
-    		RNADOM_TYPE = (Math.random()*1000)%4 + 1;
+    		RNADOM_TYPE = Math.ceil((Math.random()*1000)%4) + 1;
     	}
     	if(time != MAX_ROUND_TIME){
         	this.bonus = new Bonus(RNADOM_TYPE,RANDOM_X,RANDOM_Y);
