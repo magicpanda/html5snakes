@@ -104,7 +104,7 @@ var SnakeWarsGame = {
 		if (time % 50 == 0) {
 			RANDOM_X = Math.ceil(Math.random() * CANVAS_WIDTH / GRID_WIDTH);
 			RANDOM_Y = Math.ceil(Math.random() * CANVAS_HEIGHT / GRID_WIDTH) + 2;
-			RNADOM_TYPE = Math.ceil(Math.random() * 1000) % 4 + 1;
+			RNADOM_TYPE = Math.ceil(Math.random() * 1000) % 5 + 1;
 		}
         this.bonus = new Bonus(RNADOM_TYPE,RANDOM_X,RANDOM_Y);
         this.bonus.draw(ctx2d);
