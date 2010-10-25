@@ -33,8 +33,7 @@ Bonus.prototype.draw = function(ctx2d) {
         	}
         	var x = this.x*GRID_WIDTH;
         	var y = this.y*GRID_WIDTH;
-        	var type = Math.ceil(Math.random()*1000)%4 + 1;
-        	ctx2d.drawImage(document.getElementById("c" + type), x+2, y+5);
+        	ctx2d.drawImage(document.getElementById("c" + this.type), x+2, y+5);
         	//ctx2d.fillRect(x, y, 8, 8);
 }
 
@@ -42,6 +41,4 @@ Bonus.prototype.destory = function(ctx2d) {
 			var x = this.x*GRID_WIDTH;
         	var y = this.y*GRID_WIDTH;
         	ctx2d.fillRect(x, y, 8, 8);
-        	this.x = -100;
-        	this.y = -100;
 }

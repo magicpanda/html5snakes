@@ -131,12 +131,6 @@ Snake.prototype.eat = function(ctx2d, bonus, snake2) {
 	//alert(myHead.x +":" + bonus.x + ":"+ myHead.y + ":" + bonus.y);
 	if (myHead.x == bonus.x && myHead.y == bonus.y) {
 		bonus.action(this,snake2);
-		// reverse snakes' movement direction
-		/*if (bonus.type == BONUS_TYPE.FREEZE) {
-			bonus.type = -1;
-			snake2.reverse();
-			bonus.destory(ctx2d);
-			return;
-		}*/
+		bonus.destory(ctx2d);
 	}
 }
