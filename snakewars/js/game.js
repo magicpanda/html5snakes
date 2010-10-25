@@ -1,7 +1,7 @@
 var CANVAS_WIDTH  = 800;
 var CANVAS_HEIGHT = 640;
 var GRID_WIDTH = 40;
-var MAX_ROUND_TIME = 2*60*1000;// 2 minutes
+var MAX_ROUND_TIME = 0.2*60*1000;// 2 minutes
 var RANDOM_X = 10,RANDOM_Y = 5,RNADOM_TYPE = 5;
 
 var GAME_STATE = {
@@ -92,7 +92,7 @@ var SnakeWarsGame = {
                 ctx2d.drawImage(document.getElementById("p" + playerId), x+2, y+5);
             } else {
                 // draw body
-                ctx2d.drawImage(document.getElementById("c" + (i%4+1)), x+2, y+5);
+                ctx2d.drawImage(document.getElementById("c" + playerId + (i%4+1)), x+2, y+5);
             }
         }
     },
