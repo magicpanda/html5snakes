@@ -2,7 +2,7 @@ var CANVAS_WIDTH  = 800;
 var CANVAS_HEIGHT = 640;
 var GRID_WIDTH = 40;
 var MAX_ROUND_TIME = 2*60*1000;// 2 minutes
-var RANDOM_X = 10,RANDOM_Y = 5,RNADOM_TYPE = 1;
+var RANDOM_X = 10,RANDOM_Y = 5,RNADOM_TYPE = 5;
 
 var GAME_STATE = {
     PLAYING : 0,
@@ -45,6 +45,10 @@ var SnakeWarsGame = {
                 this.snake2.move();
             	this.snake1.eat(ctx2d,this.bonus,this.snake2);                
                 this.snake2.eat(ctx2d,this.bonus,this.snake1);
+                if(this.timer.timeLeft%3000 == 0){
+                	this.snake1.defreeze();
+                	this.snake2.defreeze();
+                } 
                 if (!this.snake1.bite(this.snake2)) {
                     this.snake2.bite(this.snake1);
                 }

@@ -3,7 +3,8 @@ var BONUS_TYPE = {
     REVERSE: 1,
     GROW: 2,
     SHORTEN: 3,
-    HIDING: 4
+    HIDING: 4,
+    FREEZE: 5
 }
 function Bonus(type,x,y) {
     this.type = type;
@@ -18,23 +19,14 @@ Bonus.prototype.action = function(snake1,snake2) {
         case BONUS_TYPE.GROW: {snake1.grow(1);break;}
         case BONUS_TYPE.SHORTEN:  {snake1.grow(1);snake2.shrink(1);break;}
         case BONUS_TYPE.HIDING:  {snake2.shrink(10);break;}
+        case BONUS_TYPE.FREEZE:  {snake2.freeze();break;}
     }
 }
 
 Bonus.prototype.draw = function(ctx2d) {
-			if(this.type == BONUS_TYPE.FREEZE){
-        		ctx2d.fillStyle = "red";
-        	}else if(this.type == BONUS_TYPE.GROW){
-        	    ctx2d.fillStyle = "blue";
-        	}else if(this.type == BONUS_TYPE.SHORTEN){
-        	    ctx2d.fillStyle = "green";
-        	}else if(this.type == BONUS_TYPE.HIDING){
-        	    ctx2d.fillStyle = "yellow";
-        	}
         	var x = this.x*GRID_WIDTH;
         	var y = this.y*GRID_WIDTH;
-        	ctx2d.drawImage(document.getElementById("c" + this.type), x+2, y+5);
-        	//ctx2d.fillRect(x, y, 8, 8);
+        	ctx2d.drawImage(document.getElementById("c" + (this.type%4+1)), x+2, y+5);
 }
 
 Bonus.prototype.destory = function(ctx2d) {

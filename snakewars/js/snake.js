@@ -18,6 +18,7 @@ function Snake(sections) {
     this.direction = DIRECTION.NORTH;
     this.newDirection = DIRECTION.NORTH;
     this.sections = sections;
+    this.frozen = false;
 }
 
 Snake.prototype.changeDirectionOrSpeedUp = function(dir) {
@@ -39,6 +40,8 @@ Snake.prototype.slowDown = function() {
 }
 
 Snake.prototype.move = function() {
+	if(this.frozen)
+		return;
     // snake at NORMAL movement speed will skip odd frames
     if (this.speed == SPEED.NORMAL) {
         this.skipMove = !this.skipMove;
@@ -135,4 +138,12 @@ Snake.prototype.eat = function(ctx2d, bonus, snake2) {
 		bonus.action(this,snake2);
 		bonus.destory(ctx2d);
 	}
+}
+
+Snake.prototype.freeze = function() {
+	this.frozen = true;
+}
+
+Snake.prototype.defreeze = function() {
+	this.frozen = false;
 }
