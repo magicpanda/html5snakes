@@ -48,6 +48,7 @@ var SnakeWarsGame = {
         var ctx2d = canvas.getContext('2d');
         // draw background
         ctx2d.drawImage(document.getElementById("bg"), 0, 0);
+        ctx2d.fillText("Playfish", 20, 30);
         // draw snakes
         this.drawSnake(ctx2d, this.snake1, 1);
         this.drawSnake(ctx2d, this.snake2, 2);
