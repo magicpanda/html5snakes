@@ -17,7 +17,7 @@ Bonus.prototype.action = function(snake1,snake2) {
         case BONUS_TYPE.REVERSE: {snake2.reverse();break;}
         case BONUS_TYPE.GROW: {snake1.grow(1);break;}
         case BONUS_TYPE.SHORTEN:  {snake1.grow(1);snake2.shrink(1);break;}
-        case BONUS_TYPE.HIDING:  {snake1.grow(2);break;}
+        case BONUS_TYPE.HIDING:  {snake2.shrink(10);break;}
     }
 }
 
