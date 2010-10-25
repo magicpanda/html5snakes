@@ -26,7 +26,7 @@ Bonus.prototype.action = function(snake1,snake2) {
 Bonus.prototype.draw = function(ctx2d) {
         	var x = this.x*GRID_WIDTH;
         	var y = this.y*GRID_WIDTH;
-        	ctx2d.drawImage(document.getElementById("c" + (this.type%4+1)), x+2, y+5);
+        	ctx2d.drawImage(document.getElementById("c1" + (this.type%4+1)), x+2, y+5);
 }
 
 Bonus.prototype.destory = function(ctx2d) {
