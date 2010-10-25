@@ -36,7 +36,7 @@ var SnakeWarsGame = {
                 this.snake1.move();
                 this.snake2.move();
             	this.snake1.eat(ctx2d,this.bonus,this.snake2);                
-                //this.snake2.eat(this.bonus,this.snake1);
+                this.snake2.eat(ctx2d,this.bonus,this.snake1);
                 if (!this.snake1.bite(this.snake2)) {
                     this.snake2.bite(this.snake1);
                 }
@@ -80,7 +80,7 @@ var SnakeWarsGame = {
         ctx2d.fillText(this.result, CANVAS_WIDTH - 100, 30);
     },
     drawBonus: function(ctx2d,time) {
-    	if(time%1200 == 0 && time <= MAX_ROUND_TIME){
+    	if(time%300 == 0 && time <= MAX_ROUND_TIME){
     		RANDOM_X = Math.ceil(Math.random()*CANVAS_WIDTH/10);
     		RANDOM_Y = Math.ceil(Math.random()*CANVAS_HEIGHT/10);
     		RNADOM_TYPE = Math.ceil(Math.random()*1000)%4 + 1;
