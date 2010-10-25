@@ -1,5 +1,6 @@
 var CANVAS_WIDTH  = 800;
-var CANVAS_HEIGHT = 600;
+var CANVAS_HEIGHT = 640;
+var GRID_WIDTH = 40;
 var MAX_ROUND_TIME = 2*60*1000;// 2 minutes
 var RANDOM_X = -10,RANDOM_Y = -20,RNADOM_TYPE = 2;
 
@@ -10,8 +11,8 @@ var GAME_STATE = {
 
 var SnakeWarsGame = {
     name: "Snake Wars",
-    snake1: new Snake([{x:10, y:5},{x:10, y:6},{x:10, y:7},{x:10, y:8},{x:10, y:9}]),
-    snake2: new Snake([{x:20, y:5},{x:20, y:6},{x:20, y:7},{x:20, y:8},{x:20, y:9}]),
+    snake1: new Snake([{x: 5, y:7},{x: 5, y:8},{x: 5, y:9},{x: 5, y:10},{x: 5, y:11}]),
+    snake2: new Snake([{x:14, y:7},{x:14, y:8},{x:14, y:9},{x:14, y:10},{x:14, y:11}]),
 	bonus: new Bonus(RNADOM_TYPE,RANDOM_X,RANDOM_Y),
     timer: new CountdownTimer(MAX_ROUND_TIME), 
     state: GAME_STATE.PLAYING,
@@ -45,34 +46,38 @@ var SnakeWarsGame = {
     
     draw: function(canvas) {
         var ctx2d = canvas.getContext('2d');
-        canvas.width = CANVAS_WIDTH;
-        canvas.height = CANVAS_HEIGHT;
-        // clear the canvas
-        ctx2d.clearRect(0, 0, canvas.width, canvas.height);
-
-        // draw countdown timer
-        this.drawTimer(ctx2d);
+        // draw background
+        ctx2d.drawImage(document.getElementById("bg"), 0, 0);
         // draw snakes
-        this.drawSnake(ctx2d, this.snake1);
-        this.drawSnake(ctx2d, this.snake2);
-        
-        if (this.state == GAME_STATE.STOPED) {
-            ctx2d.fillText(this.result, CANVAS_WIDTH / 2 - 100, CANVAS_HEIGHT / 2);
-        }
-
+        this.drawSnake(ctx2d, this.snake1, 1);
+        this.drawSnake(ctx2d, this.snake2, 2);
         this.drawBonus(ctx2d, this.timer.timeLeft);
+        // draw timer or result
+        if (this.state == GAME_STATE.PLAYING) {
+            this.drawTimer(ctx2d);
+        } else {
+            this.drawResult(ctx2d);
+        }
     },
-    drawSnake: function(ctx2d, snake) {
+    drawSnake: function(ctx2d, snake, playerId) {
         for (var i = 0; i < snake.sections.length; i++) {
-            ctx2d.fillStyle = (i == 0 ? "black" : "gray");
-            var x = snake.sections[i].x*10;
-            var y = snake.sections[i].y*10;
-            ctx2d.fillRect(x+1, y+1, 8, 8);
+            var x = snake.sections[i].x*GRID_WIDTH;
+            var y = snake.sections[i].y*GRID_WIDTH;
+            if (i == 0) {
+                // draw head
+                ctx2d.drawImage(document.getElementById("p" + playerId), x+2, y+5);
+            } else {
+                // draw body
+                ctx2d.drawImage(document.getElementById("c" + (i%4+1)), x+2, y+5);
+            }
         }
     },
     drawTimer: function(ctx2d) {
-        ctx2d.fillStyle =  "gray";
+        ctx2d.fillStyle = "gray";
         ctx2d.fillText(this.timer.getTimeLeft(), CANVAS_WIDTH - 100, 30);
+    },
+    drawResult: function(ctx2d) {
+        ctx2d.fillText(this.result, CANVAS_WIDTH - 100, 30);
     },
     drawBonus: function(ctx2d,time) {
     	if(time%1200 == 0 && time <= MAX_ROUND_TIME){

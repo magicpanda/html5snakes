@@ -1,4 +1,4 @@
-var FPS = 5;
+var FPS = 10;
 
 var GameEngine = {
     load: function(game) {
@@ -7,7 +7,7 @@ var GameEngine = {
 
         window.setInterval(function() {
             if (!paused) {
-                game.update();
+                game.update(canvas);
                 game.draw(canvas);
             }
         }, 1000 / FPS);
