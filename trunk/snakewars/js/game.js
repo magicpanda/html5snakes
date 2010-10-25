@@ -11,14 +11,16 @@ var GAME_STATE = {
 
 var SnakeWarsGame = {
     name: "Snake Wars",
+    frameCounter: 0,
     snake1: new Snake([{x: 5, y:7},{x: 5, y:8},{x: 5, y:9},{x: 5, y:10},{x: 5, y:11}]),
     snake2: new Snake([{x:14, y:7},{x:14, y:8},{x:14, y:9},{x:14, y:10},{x:14, y:11}]),
 	bonus: new Bonus(RNADOM_TYPE,RANDOM_X,RANDOM_Y),
     timer: new CountdownTimer(MAX_ROUND_TIME), 
-    state: GAME_STATE.PLAYING,
+    state: GAME_STATE.STOPED,
     result: "",
 
     update: function(canvas) {
+        this.frameCounter++;
     	var ctx2d = canvas.getContext('2d');
         if (this.state == GAME_STATE.PLAYING) {
             this.timer.update();
@@ -26,9 +28,9 @@ var SnakeWarsGame = {
                 //alert("time out!");
                 this.state = GAME_STATE.STOPED;
                 if (this.snake1.sections.length > this.snake2.sections.length) {
-                    this.result = "Snake 1 wins!";
+                    this.result = "Player 1 wins!";
                 } else if (this.snake2.sections.length > this.snake1.sections.length) {
-                    this.result = "Snake 2 wins!";
+                    this.result = "Player 2 wins!";
                 } else {
                     this.result = "No one wins!";
                 }
@@ -46,18 +48,26 @@ var SnakeWarsGame = {
     
     draw: function(canvas) {
         var ctx2d = canvas.getContext('2d');
-        // draw background
-        ctx2d.drawImage(document.getElementById("bg"), 0, 0);
-        ctx2d.fillText("Playfish", 20, 30);
-        // draw snakes
-        this.drawSnake(ctx2d, this.snake1, 1);
-        this.drawSnake(ctx2d, this.snake2, 2);
-        this.drawBonus(ctx2d, this.timer.timeLeft);
-        // draw timer or result
         if (this.state == GAME_STATE.PLAYING) {
-            this.drawTimer(ctx2d);
+            // draw background
+            ctx2d.drawImage(document.getElementById("bg"), 0, 0);
+            ctx2d.fillText("Playfish", 20, 30);
+            //ctx2d.drawImage(document.getElementById("pflogo"), 0, 0);
+            // draw snakes
+            this.drawSnake(ctx2d, this.snake1, 1);
+            this.drawSnake(ctx2d, this.snake2, 2);
+            this.drawBonus(ctx2d, this.timer.timeLeft);
+            // draw timer or result
+            if (this.state == GAME_STATE.PLAYING) {
+                this.drawTimer(ctx2d);
+            } else {
+                this.drawResult(ctx2d);
+            }
         } else {
-            this.drawResult(ctx2d);
+            ctx2d.drawImage(document.getElementById("start"), 0, 0);
+            if (this.frameCounter % 10 < 5) {
+                ctx2d.fillText("Press Enter to Start !", CANVAS_WIDTH - 120, 30);
+            }
         }
     },
     drawSnake: function(ctx2d, snake, playerId) {
@@ -94,19 +104,22 @@ var SnakeWarsGame = {
     keyDown: function(keyCode) {
         //alert("keyDown:" + keyCode);
         switch (keyCode) {
-            case 37: this.snake1.changeDirectionOrSpeedUp(DIRECTION.WEST);  break; // left arrow
-            case 38: this.snake1.changeDirectionOrSpeedUp(DIRECTION.NORTH); break; // up arrow
-            case 39: this.snake1.changeDirectionOrSpeedUp(DIRECTION.EAST);  break; // right arrow
-            case 40: this.snake1.changeDirectionOrSpeedUp(DIRECTION.SOUTH); break; // down arrow
-            case 65: this.snake2.changeDirectionOrSpeedUp(DIRECTION.WEST);  break; // A
-            case 68: this.snake2.changeDirectionOrSpeedUp(DIRECTION.EAST);  break; // D
-            case 83: this.snake2.changeDirectionOrSpeedUp(DIRECTION.SOUTH); break; // S
-            case 87: this.snake2.changeDirectionOrSpeedUp(DIRECTION.NORTH); break; // W
+            case 37:this.snake1.changeDirectionOrSpeedUp(DIRECTION.WEST);break; // left arrow
+            case 38:this.snake1.changeDirectionOrSpeedUp(DIRECTION.NORTH);break; // up arrow
+            case 39:this.snake1.changeDirectionOrSpeedUp(DIRECTION.EAST);break; // right arrow
+            case 40:this.snake1.changeDirectionOrSpeedUp(DIRECTION.SOUTH);break; // down arrow
+            case 65:this.snake2.changeDirectionOrSpeedUp(DIRECTION.WEST);break; // A
+            case 68:this.snake2.changeDirectionOrSpeedUp(DIRECTION.EAST);break; // D
+            case 83:this.snake2.changeDirectionOrSpeedUp(DIRECTION.SOUTH);break; // S
+            case 87:this.snake2.changeDirectionOrSpeedUp(DIRECTION.NORTH);break; // W
         }
     },
     keyUp: function (keyCode) {
         //alert("keyUp:" + keyCode);
         switch (keyCode) {
+            case 13: // Enter
+                this.state = GAME_STATE.PLAYING;
+                break;
             case 37: // left arrow
             case 38: // up arrow
             case 39: // right arrow
