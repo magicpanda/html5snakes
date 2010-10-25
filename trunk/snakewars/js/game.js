@@ -1,6 +1,6 @@
 var CANVAS_WIDTH  = 800;
 var CANVAS_HEIGHT = 600;
-var MAX_ROUND_TIME = 30 * 60;
+var MAX_ROUND_TIME = 2*60*1000;// 2 minutes
 var RANDOM_X = 10,RANDOM_Y = 2,RNADOM_TYPE = 1;
 
 var GAME_STATE = {
@@ -13,7 +13,7 @@ var SnakeWarsGame = {
     snake1: new Snake([{x:10, y:5},{x:10, y:6},{x:10, y:7},{x:10, y:8},{x:10, y:9}]),
     snake2: new Snake([{x:20, y:5},{x:20, y:6},{x:20, y:7},{x:20, y:8},{x:20, y:9}]),
 	bonus: new Bonus(RNADOM_TYPE,RANDOM_X,RANDOM_Y),
-    timer: new CountdownTimer(2*60*1000), // 2 minutes
+    timer: new CountdownTimer(MAX_ROUND_TIME), 
     state: GAME_STATE.PLAYING,
     result: "",
 
@@ -75,12 +75,12 @@ var SnakeWarsGame = {
         ctx2d.fillText(this.timer.getTimeLeft(), CANVAS_WIDTH - 100, 30);
     },
     drawBonus: function(ctx2d,time) {
-    	if(time%120 == 0){
+    	if(time%120 == 0 && time <= MAX_ROUND_TIME){
     		RANDOM_X = Math.ceil(Math.random()*CANVAS_WIDTH/10);
     		RANDOM_Y = Math.ceil(Math.random()*CANVAS_HEIGHT/10);
     		RNADOM_TYPE = Math.ceil((Math.random()*1000)%4) + 1;
     	}
-    	if(time != MAX_ROUND_TIME){
+    	if(time <= MAX_ROUND_TIME){
         	this.bonus = new Bonus(RNADOM_TYPE,RANDOM_X,RANDOM_Y);
         	this.bonus.draw(ctx2d);
     	}
