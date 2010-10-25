@@ -12,13 +12,17 @@ var GAME_STATE = {
 var SnakeWarsGame = {
     name: "Snake Wars",
     frameCounter: 0,
-    snake1: new Snake([{x: 5, y:7},{x: 5, y:8},{x: 5, y:9},{x: 5, y:10},{x: 5, y:11}]),
-    snake2: new Snake([{x:14, y:7},{x:14, y:8},{x:14, y:9},{x:14, y:10},{x:14, y:11}]),
+    snake1: new Snake([{x:14, y:7},{x:14, y:8},{x:14, y:9},{x:14, y:10},{x:14, y:11}]),
+    snake2: new Snake([{x: 5, y:7},{x: 5, y:8},{x: 5, y:9},{x: 5, y:10},{x: 5, y:11}]),
 	bonus: new Bonus(RNADOM_TYPE,RANDOM_X,RANDOM_Y),
     timer: new CountdownTimer(MAX_ROUND_TIME), 
     state: GAME_STATE.STOPED,
     result: "",
 
+    start: function() {
+        this.state = GAME_STATE.PLAYING;
+        this.timer.reset();
+    },
     update: function(canvas) {
         this.frameCounter++;
     	var ctx2d = canvas.getContext('2d');
@@ -118,7 +122,7 @@ var SnakeWarsGame = {
         //alert("keyUp:" + keyCode);
         switch (keyCode) {
             case 13: // Enter
-                this.state = GAME_STATE.PLAYING;
+                this.start();
                 break;
             case 37: // left arrow
             case 38: // up arrow

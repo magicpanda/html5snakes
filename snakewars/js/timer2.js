@@ -21,7 +21,7 @@ CountdownTimer.prototype.update = function() {
 
 CountdownTimer.prototype.getTimeLeft = function() {
     var minutesLeft = Math.floor(this.timeLeft / 1000 / 60);
-    var secondsLeft = Math.round(this.timeLeft / 1000 % 60);
+    var secondsLeft = Math.floor(this.timeLeft / 1000) % 60;
     var millisLeft = this.timeLeft % 60 % 100;
     return (minutesLeft < 10 ? "0" : "") + minutesLeft + ":" +
            (secondsLeft < 10 ? "0" : "") + secondsLeft + ":" + millisLeft;
