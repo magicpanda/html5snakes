@@ -1,6 +1,6 @@
 // Bonus's type.
 var BONUS_TYPE = {
-    FREEZE: 1,
+    REVERSE: 1,
     GROW: 2,
     SHORTEN: 3,
     HIDING: 4
@@ -14,7 +14,7 @@ function Bonus(type,x,y) {
 
 Bonus.prototype.action = function(snake1,snake2) {
  	switch (this.type) {
-        case BONUS_TYPE.FREEZE: {break;}
+        case BONUS_TYPE.REVERSE: {snake2.reverse();break;}
         case BONUS_TYPE.GROW: {snake1.grow(1);break;}
         case BONUS_TYPE.SHORTEN:  {snake1.grow(1);snake2.shrink(1);break;}
         case BONUS_TYPE.HIDING:  {snake1.grow(2);break;}
