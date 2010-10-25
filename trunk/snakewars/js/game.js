@@ -6,7 +6,7 @@ var RANDOM_X = 10,RANDOM_Y = 5,RNADOM_TYPE = 5;
 
 var GAME_STATE = {
     PLAYING : 0,
-     STOPED : 1
+    STOPPED : 1
 };
 
 var SnakeWarsGame = {
@@ -16,7 +16,7 @@ var SnakeWarsGame = {
     snake2: new Snake([{x:14, y:7},{x:14, y:8},{x:14, y:9},{x:14, y:10},{x:14, y:11}]),
 	bonus: new Bonus(RNADOM_TYPE,RANDOM_X,RANDOM_Y),
     timer: new CountdownTimer(MAX_ROUND_TIME), 
-    state: GAME_STATE.STOPED,
+    state: GAME_STATE.STOPPED,
     winner: null,
 
     start: function() {
@@ -32,7 +32,7 @@ var SnakeWarsGame = {
             this.timer.update();
             if (this.timer.timeLeft == 0) {
                 //alert("time out!");
-                this.state = GAME_STATE.STOPED;
+                this.state = GAME_STATE.STOPPED;
                 if (this.snake1.sections.length > this.snake2.sections.length) {
                     this.winner = this.snake1;
                 } else if (this.snake2.sections.length > this.snake1.sections.length) {
@@ -45,7 +45,7 @@ var SnakeWarsGame = {
                 this.snake2.move();
             	this.snake1.eat(ctx2d,this.bonus,this.snake2);                
                 this.snake2.eat(ctx2d,this.bonus,this.snake1);
-                if(this.timer.timeLeft%3000 == 0){
+                if(this.frameCounter % 50 == 0){
                 	this.snake1.defreeze();
                 	this.snake2.defreeze();
                 } 
@@ -66,7 +66,7 @@ var SnakeWarsGame = {
             // draw snakes
             this.drawSnake(ctx2d, this.snake1, 1);
             this.drawSnake(ctx2d, this.snake2, 2);
-            this.drawBonus(ctx2d, this.timer.timeLeft);
+            this.drawBonus(ctx2d, this.frameCounter);
             // draw timer
             if (this.state == GAME_STATE.PLAYING) {
                 this.drawTimer(ctx2d);
@@ -101,15 +101,13 @@ var SnakeWarsGame = {
         ctx2d.fillText(this.timer.getTimeLeft(), CANVAS_WIDTH - 100, 30);
     },
     drawBonus : function(ctx2d, time) {
-		if (time % 120 == 0) {
+		if (time % 50 == 0) {
 			RANDOM_X = Math.ceil(Math.random() * CANVAS_WIDTH / GRID_WIDTH);
 			RANDOM_Y = Math.ceil(Math.random() * CANVAS_HEIGHT / GRID_WIDTH) + 2;
 			RNADOM_TYPE = Math.ceil(Math.random() * 1000) % 4 + 1;
 		}
-    	if(time != 0){
-        	this.bonus = new Bonus(RNADOM_TYPE,RANDOM_X,RANDOM_Y);
-        	this.bonus.draw(ctx2d);
-    	}
+        this.bonus = new Bonus(RNADOM_TYPE,RANDOM_X,RANDOM_Y);
+        this.bonus.draw(ctx2d);
     },
     keyDown: function(keyCode) {
         //alert("keyDown:" + keyCode);
@@ -128,7 +126,9 @@ var SnakeWarsGame = {
         //alert("keyUp:" + keyCode);
         switch (keyCode) {
             case 13: // Enter
-                this.start();
+                if (this.state == GAME_STATE.STOPPED) {
+                    this.start();
+                }
                 break;
             case 37: // left arrow
             case 38: // up arrow
