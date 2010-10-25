@@ -40,5 +40,5 @@ Bonus.prototype.draw = function(ctx2d) {
 Bonus.prototype.destory = function(ctx2d) {
 			var x = this.x*GRID_WIDTH;
         	var y = this.y*GRID_WIDTH;
-        	ctx2d.fillRect(x, y, 8, 8);
+        	RANDOM_X = -10;RANDOM_Y=-10;
 }
