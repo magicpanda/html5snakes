@@ -2,7 +2,7 @@ var CANVAS_WIDTH  = 800;
 var CANVAS_HEIGHT = 640;
 var GRID_WIDTH = 40;
 var MAX_ROUND_TIME = 2*60*1000;// 2 minutes
-var RANDOM_X = -10,RANDOM_Y = -20,RNADOM_TYPE = 2;
+var RANDOM_X = 1,RANDOM_Y = 2,RNADOM_TYPE = 2;
 
 var GAME_STATE = {
     PLAYING : 0,
@@ -80,13 +80,13 @@ var SnakeWarsGame = {
     drawResult: function(ctx2d) {
         ctx2d.fillText(this.result, CANVAS_WIDTH - 100, 30);
     },
-    drawBonus: function(ctx2d,time) {
-    	if(time%300 == 0 && time <= MAX_ROUND_TIME){
-    		RANDOM_X = Math.ceil(Math.random()*CANVAS_WIDTH/10);
-    		RANDOM_Y = Math.ceil(Math.random()*CANVAS_HEIGHT/10);
-    		RNADOM_TYPE = Math.ceil(Math.random()*1000)%4 + 1;
-    	}
-    	if(time <= MAX_ROUND_TIME){
+    drawBonus : function(ctx2d, time) {
+		if (time % 120 == 0) {
+			RANDOM_X = Math.ceil(Math.random() * CANVAS_WIDTH / GRID_WIDTH);
+			RANDOM_Y = Math.ceil(Math.random() * CANVAS_HEIGHT / GRID_WIDTH) + 2;
+			RNADOM_TYPE = Math.ceil(Math.random() * 1000) % 4 + 1;
+		}
+    	if(time != 0){
         	this.bonus = new Bonus(RNADOM_TYPE,RANDOM_X,RANDOM_Y);
         	this.bonus.draw(ctx2d);
     	}
