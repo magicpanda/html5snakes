@@ -76,6 +76,9 @@ var SnakeWarsGame = {
             if (this.frameCounter % 10 < 5) {
                 ctx2d.fillText("Press Enter to Start !", CANVAS_WIDTH - 120, 30);
             }
+            if(this.winner != null){
+				ctx2d.drawImage(document.getElementById("end"), 0, 0);
+            }
             if (this.winner == this.snake1) {
                 ctx2d.drawImage(document.getElementById("win"), 0, 0);
             } else if (this.winner == this.snake2) {
