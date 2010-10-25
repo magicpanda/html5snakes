@@ -123,6 +123,8 @@ Snake.prototype.grow = function(num) {
 Snake.prototype.shrink = function(num) {
     if (this.sections.length > num) {
         this.sections.length -= num;
+    }else{
+    	this.sections.length = 1;
     }
 }
 // eat bonus
