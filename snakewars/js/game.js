@@ -1,7 +1,7 @@
 var CANVAS_WIDTH  = 800;
 var CANVAS_HEIGHT = 640;
 var GRID_WIDTH = 40;
-var MAX_ROUND_TIME = 2*60*1000;// 2 minutes
+var MAX_ROUND_TIME = 0.2*60*1000;// 2 minutes
 var RANDOM_X = 10,RANDOM_Y = 5,RNADOM_TYPE = 5;
 
 var GAME_STATE = {
@@ -112,14 +112,14 @@ var SnakeWarsGame = {
     keyDown: function(keyCode) {
         //alert("keyDown:" + keyCode);
         switch (keyCode) {
-            case 37:this.snake1.changeDirectionOrSpeedUp(DIRECTION.WEST);break; // left arrow
-            case 38:this.snake1.changeDirectionOrSpeedUp(DIRECTION.NORTH);break; // up arrow
-            case 39:this.snake1.changeDirectionOrSpeedUp(DIRECTION.EAST);break; // right arrow
-            case 40:this.snake1.changeDirectionOrSpeedUp(DIRECTION.SOUTH);break; // down arrow
-            case 65:this.snake2.changeDirectionOrSpeedUp(DIRECTION.WEST);break; // A
-            case 68:this.snake2.changeDirectionOrSpeedUp(DIRECTION.EAST);break; // D
-            case 83:this.snake2.changeDirectionOrSpeedUp(DIRECTION.SOUTH);break; // S
-            case 87:this.snake2.changeDirectionOrSpeedUp(DIRECTION.NORTH);break; // W
+            case 37:this.snake2.changeDirectionOrSpeedUp(DIRECTION.WEST);break; // left arrow
+            case 38:this.snake2.changeDirectionOrSpeedUp(DIRECTION.NORTH);break; // up arrow
+            case 39:this.snake2.changeDirectionOrSpeedUp(DIRECTION.EAST);break; // right arrow
+            case 40:this.snake2.changeDirectionOrSpeedUp(DIRECTION.SOUTH);break; // down arrow
+            case 65:this.snake1.changeDirectionOrSpeedUp(DIRECTION.WEST);break; // A
+            case 68:this.snake1.changeDirectionOrSpeedUp(DIRECTION.EAST);break; // D
+            case 83:this.snake1.changeDirectionOrSpeedUp(DIRECTION.SOUTH);break; // S
+            case 87:this.snake1.changeDirectionOrSpeedUp(DIRECTION.NORTH);break; // W
         }
     },
     keyUp: function (keyCode) {
@@ -134,13 +134,13 @@ var SnakeWarsGame = {
             case 38: // up arrow
             case 39: // right arrow
             case 40: // down arrow
-                this.snake1.slowDown();
+                this.snake2.slowDown();
                 break;
             case 65: // A
             case 68: // D
             case 83: // S
             case 87: // W
-                this.snake2.slowDown();
+                this.snake1.slowDown();
                 break;
         }
     }
