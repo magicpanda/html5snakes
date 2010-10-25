@@ -14,10 +14,10 @@ function Bonus(type,x,y) {
 
 Bonus.prototype.action = function(snake1,snake2) {
  	switch (this.type) {
-        case BONUS_TYPE.FREEZE: {alert("FREEZE");break;}
-        case BONUS_TYPE.GROW: {alert("GROW");break;}
-        case BONUS_TYPE.SHORTEN:  {alert("SHORTEN");break;}
-        case BONUS_TYPE.HIDING:  {alert("HIDING");break;}
+        case BONUS_TYPE.FREEZE: {break;}
+        case BONUS_TYPE.GROW: {snake1.grow(1);break;}
+        case BONUS_TYPE.SHORTEN:  {snake1.grow(1);snake2.shrink(1);break;}
+        case BONUS_TYPE.HIDING:  {snake1.grow(2);break;}
     }
 }
 
